@@ -34,5 +34,12 @@ public class GravEngine extends PhysicsEngine{
 	// TODO: 
         // For each body:
         //     compute the forces of all other bodies on that body
+	for(int i = 0; i < bodies.length; i++)
+	    {
+		for(int j = 0; j < bodies.length; j++)
+		    {
+			bodies[i].addForceFrom(bodies[j]);
+		    }
+	    }
     }
 }

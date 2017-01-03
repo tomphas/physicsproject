@@ -25,7 +25,7 @@ public class GravSim{
 	    timeDelta = Double.parseDouble(args[1]);
 	}   
 	int r = 0, b = 0, g = 0;
-	if(args.length > 4){
+	if(args.length > 3){
 	    r = Integer.parseInt(args[2]);
 	    b = Integer.parseInt(args[3]);
 	    g = Integer.parseInt(args[4]);

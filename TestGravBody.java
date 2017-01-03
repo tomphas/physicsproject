@@ -95,27 +95,26 @@ public class TestGravBody {
     public void testAddForceFrom(){
 	// HINT: The physics coursework/homework you did is helpful here
 
-	GravBody gbA = new GravBody(0, 2, 0, 0, 0, 0, 0, 0);
-	GravBody gbB = new GravBody(0, 5, 0, 0, 0, 0, 0, 0);
-	GravBody gbC = new GravBody(0, 7, 0, 0, 0, 0, 0, 0);
-	double delta = 0.00001;
+	GravBody gbA = new GravBody(0, 2, 0, 0, 5, 0, 0, 0);
+	GravBody gbB = new GravBody(0, 5, 0, 0, 4, 0, 0, 0);
+	GravBody gbC = new GravBody(0, 7, 0, 0, 6, 0, 0, 0);
+	double delta = 0.0000000000001;
 
 	// TODO: Assert that the x and y component of force on gbA are 0
 	// HINT: There's no method on the Body to get the forces--but gbA is
 	// a GravBody. So you can add methods to gravBody that isnt' on the
 	// interface to get the forces you need solely for testing purposes.
 
-	gbA.getForceFrom(gbB);
-	gbA.getForceFrom(gbC);
-	assertEquals(0, gbA.getForceFrom(gbB), delta);
-	assertEquals(0, gbA.getForceFrom(gbC), delta);
+	assertEquals(0, gbA.getXForce(), delta);
+	assertEquals(0, gbA.getYForce(), delta);
 
 	// TODO: Assert that the x and y components of force on gbA are correct
-
+	gbA.addForceFrom(gbB);
+	gbA.addForceFrom(gbC);
+	assertEquals(2.283512E-10, gbA.getXForce(), delta);
+	assertEquals(0, gbA.getYForce(), delta);
+	
 	// TODO: Assert that the x and y components of force on gbB are 0
-
-	gbB.getForceFrom(gbA);
-	gbB.getForceFrom(gbC);
 
 	// TODO: Assert that x and y components of force on gbB are correct
 
@@ -130,14 +129,18 @@ public class TestGravBody {
 	// HINT: The physics coursework/homework you did her is helpful.
 
 	// TODO: Create 3 GravBody objects
-
+	GravBody gbA = new GravBody(0, 2, 0, 0, 5, 0, 0, 0);
+	GravBody gbB = new GravBody(0, 5, 0, 0, 4, 0, 0, 0);
+	GravBody gbC = new GravBody(0, 7, 0, 0, 6, 0, 0, 0);
+	double delta = 0.00000000000000000000000000001;
 	// TODO: For each GravBody object, add force from other two
-	
+	gbA.addForceFrom(gbB);
+	gbA.addForceFrom(gbC);
 	// TODO: Move each GravBody object for some time delta
-
+	gbA.move(1);
 	// TODO: For each GravBody object, assert that new x and y coordinates
 	// are correct after movement
-
+	assertEquals(4.567024E-11, gbA.getXCoord(), delta);
 	// TODO: For each GravBody object, assert that x and y components of
 	// force are now 0
 

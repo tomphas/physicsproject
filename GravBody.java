@@ -17,7 +17,8 @@ public class GravBody implements Body{
     int r;
     int g;
     int b;
-    double force;
+    double xForce;
+    double yForce;
     // TODO: Add a constructor to initialize instance variables
     public GravBody(double xc, double yc, double xv, double yv, double m, int rI, int gI, int bI)
     {
@@ -29,7 +30,8 @@ public class GravBody implements Body{
 	r = rI;
 	g = gI;
 	b = bI;
-	force = 0;
+	xForce = 0;
+	yForce = 0;
     }
     // TODO: Implement all methods to satisfy interface
     public double getXCoord()
@@ -52,7 +54,7 @@ public class GravBody implements Body{
     }
     public double getRadius()
     {
-	return 0;
+	return 100;
     }
     public int[] getRGB()
     {
@@ -78,12 +80,25 @@ public class GravBody implements Body{
     }
     public void addForceFrom(Body otherBody)
     {
-	force = ((6.67*pow(10, -11))*this.getMass()*otherBody.getMass())/
+	xForce += ((6.67*pow(10, -11))*mass*otherBody.getMass())/
 	    (pow(this.findDistance(otherBody), 2));
+    }
+    public double getXForce()
+    {
+	return xForce;
+    }
+    public double getYForce()
+    {
+	return yForce;
     }
     public void move(double time)
     {
-	int xForce = 
+	double xAccel = xForce/mass;
+	double yAccel = yForce/mass;
+	xVelocity = xVelocity + time*xAccel;
+	yVelocity = yVelocity + time*yAccel;
+	xCoord += xVelocity*time;
+	yCoord += yVelocity*time;
     }
     // TODO: Implment any additional methods for testing (i.e. methods
     // not listed on the Body interface). Look at TestGravBody for ideas

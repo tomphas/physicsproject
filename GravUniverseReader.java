@@ -45,7 +45,6 @@ public class GravUniverseReader extends UniverseReader{
     {
 	return numBods;
     }
-    public
     /* public String[] getBodiesStr()
     {
 	return bodiesStr;
@@ -56,7 +55,7 @@ public class GravUniverseReader extends UniverseReader{
 	// the two inherited methods on the GravUniverseReader object.
         // Then print out the information returned from these methods
 	// to verify that they worked correctly.
-	GravUniverseReader UR = new GravUniverseReader("galaxy20k.txt");
+	GravUniverseReader UR = new GravUniverseReader("planets.txt");
 	Body[] test = UR.getBodies();
 	System.out.println(test[1].getXCoord());
 	System.out.println(test[0].getXCoord());
