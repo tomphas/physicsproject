@@ -85,7 +85,7 @@ public abstract class PhysicsEngine{
 	// TODO: Copy the offscreen canvs to the onscreen canvas
 	StdDraw.show();
 	// TODO: Wait for a short amount of time
-	//StdDraw.pause(1000);
+	StdDraw.pause(1);
     }
     
     /**

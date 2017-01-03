@@ -1,5 +1,7 @@
 import static java.lang.Math.sqrt;
 import static java.lang.Math.pow;
+import static java.lang.Math.*;
+
 /**
  * Class for representating two dimensional circular bodies for
  * physics simulations
@@ -73,6 +75,29 @@ public class GravBody implements Body{
 	return sqrt(pow(this.getYCoord()-otherBody.getYCoord(), 2)
 		    +pow(this.getXCoord()- otherBody.getXCoord(), 2));
     }
+    public double findXDistance(Body otherBody)
+    {
+	return abs(this.xCoord - otherBody.getXCoord());
+    }
+    public double findYDistance(Body otherBody)
+    {
+	return abs(this.xCoord - otherBody.getXCoord());
+    }
+    public double findTheta(Body otherBody)
+    {
+	if(this.findXDistance(otherBody) == 0)
+	    {
+		return 0;
+	    }
+	else if(this.findYDistance(otherBody) == 0)
+	    {
+		return 0;
+	    }
+	else
+	    {
+		return atan(this.findYDistance(otherBody)/this.findXDistance(otherBody));
+	    }  
+    }
     public double getForceFrom(Body otherBody)
     {
 	return ((6.67*pow(10, -11))*this.getMass()*otherBody.getMass())/
@@ -80,8 +105,8 @@ public class GravBody implements Body{
     }
     public void addForceFrom(Body otherBody)
     {
-	xForce += ((6.67*pow(10, -11))*mass*otherBody.getMass())/
-	    (pow(this.findDistance(otherBody), 2));
+	xForce += cos(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	yForce += sin(this.findTheta(otherBody))*this.getForceFrom(otherBody);
     }
     public double getXForce()
     {
