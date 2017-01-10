@@ -19,6 +19,8 @@ public class GravBody implements Body{
     int r;
     int g;
     int b;
+    //double xAccel;
+    //double yAccel;
     double xForce;
     double yForce;
     // TODO: Add a constructor to initialize instance variables
@@ -77,36 +79,50 @@ public class GravBody implements Body{
     }
     public double findXDistance(Body otherBody)
     {
-	return abs(this.xCoord - otherBody.getXCoord());
+	return abs(xCoord - otherBody.getXCoord());
     }
     public double findYDistance(Body otherBody)
     {
-	return abs(this.xCoord - otherBody.getXCoord());
+	return abs(yCoord - otherBody.getYCoord());
     }
     public double findTheta(Body otherBody)
     {
 	if(this.findXDistance(otherBody) == 0)
 	    {
 		return 0;
-	    }
-	else if(this.findYDistance(otherBody) == 0)
-	    {
-		return 0;
-	    }
-	else
-	    {
-		return atan(this.findYDistance(otherBody)/this.findXDistance(otherBody));
-	    }  
+       }
+       else if(this.findYDistance(otherBody) == 0)
+	   {
+	   return 0;
+       }
+       else
+	   {
+	       return atan(this.findYDistance(otherBody)/this.findXDistance(otherBody));
+	   }  
     }
     public double getForceFrom(Body otherBody)
     {
-	return ((6.67*pow(10, -11))*this.getMass()*otherBody.getMass())/
+	return ((6.67E-11)*this.getMass()*otherBody.getMass())/
 	    (pow(this.findDistance(otherBody), 2));
     }
     public void addForceFrom(Body otherBody)
     {
-	xForce += cos(this.findTheta(otherBody))*this.getForceFrom(otherBody);
-	yForce += sin(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	if(this.xCoord < otherBody.getXCoord())
+	    {
+		xForce += cos(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	    }
+	else
+	    {
+		xForce -= cos(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	    }
+	if(this.yCoord < otherBody.getYCoord())
+	    {
+		yForce += sin(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	    }
+	else
+	    {
+		yForce -= sin(this.findTheta(otherBody))*this.getForceFrom(otherBody);
+	    }
     }
     public double getXForce()
     {
@@ -124,6 +140,8 @@ public class GravBody implements Body{
 	yVelocity = yVelocity + time*yAccel;
 	xCoord += xVelocity*time;
 	yCoord += yVelocity*time;
+	xForce = 0;
+	yForce = 0;
     }
     // TODO: Implment any additional methods for testing (i.e. methods
     // not listed on the Body interface). Look at TestGravBody for ideas
