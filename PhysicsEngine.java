@@ -13,7 +13,8 @@ public abstract class PhysicsEngine{
     private double dt;
     private Color bgColor;
     protected double uniRad;
-    protected Body[] bodies;
+    protected Body[] cBodies;
+    // protected ColBody[] cBodies;
     
     
     /**
@@ -35,9 +36,23 @@ public abstract class PhysicsEngine{
 			 int bgRed, int bgBlue, int bgGreen){
 	this.dt = timeDelta;
 	this.uniRad = universeRadius;
-	this.bodies = bodies;
+	//this.bodies = bodies;
+	this.cBodies = bodies;
 	this.bgColor = new Color(bgRed, bgBlue, bgGreen);
     }
+    
+    /*public PhysicsEngine(Body[] bodies, double timeDelta,
+			 double universeRadius,
+			 int bgRed, int bgBlue, int bgGreen){
+	this.dt = timeDelta;
+	this.uniRad = universeRadius;
+	this.bodies = bodies;
+	this.cBodies = new ColBody[bodies.length];
+	this.bgColor = new Color(bgRed, bgBlue, bgGreen);
+	for(int i = 0; i < bodies.length; i++){
+	    cBodies[i] = new ColBody(bodies[i].getXCoord(), bodies[i].getYCoord(), bodies[i].getXVel(), bodies[i].getYVel(), bodies[i].getMass(), 10000, bodies[i].getRGB()[0], bodies[i].getRGB()[1], bodies[i].getRGB()[2]);
+	    }*/
+    //}
 
     /**
      * Runs the simluation.
@@ -61,9 +76,9 @@ public abstract class PhysicsEngine{
 	StdDraw.setScale(uniRad*-1, uniRad);
 	//StdDraw.setYscale(uniRad*-1, uniRad);
 	// TODO: Enable double buffering for efficient animation
-	System.out.println(uniRad);
-	System.out.println(bodies[0].getRadius());
-	System.out.println(bodies[0].getXCoord());
+	//System.out.println(uniRad);
+	//System.out.println(bodies[0].getRadius()
+	//System.out.println(bodies[0].getXCoord());
 	StdDraw.enableDoubleBuffering();
 	
     }
@@ -76,16 +91,17 @@ public abstract class PhysicsEngine{
 	StdDraw.clear(bgColor);
 	int[] colors;
 	// TODO: Draw each body on the offscreen canvas
-	for(int i = 0; i < bodies.length; i++)
+	for(int i = 0; i < cBodies.length; i++)
 	    {
-		colors = bodies[i].getRGB();
+		colors = cBodies[i].getRGB();
 		StdDraw.setPenColor(colors[0], colors[1], colors[2]);
-		StdDraw.filledCircle(bodies[i].getXCoord(), bodies[i].getYCoord(), bodies[i].getRadius());
+		StdDraw.setPenRadius(0.02);
+		StdDraw.filledCircle(cBodies[i].getXCoord(), cBodies[i].getYCoord(), cBodies[i].getRadius());
 		}
 	// TODO: Copy the offscreen canvs to the onscreen canvas
 	StdDraw.show();
 	// TODO: Wait for a short amount of time
-	StdDraw.pause(1);
+	StdDraw.pause(5);
     }
     
     /**
@@ -94,9 +110,9 @@ public abstract class PhysicsEngine{
      */
     private void computePositions(){
 	// TODO: Move each body
-	for(int i = 0; i < bodies.length; i++)
+	for(int i = 0; i < cBodies.length; i++)
 	    {
-		bodies[i].move(dt);
+		cBodies[i].move(dt);
 	    }
     }
 

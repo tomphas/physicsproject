@@ -6,7 +6,7 @@ import static java.lang.Math.*;
 public class TestGravBody {
     
     @Test
-    public void testGetXCoord() {
+	public void testGetXCoord() {
 	GravBody gb = new GravBody( 2.3987, 0, 0, 0, 0, 0, 0, 0);
 
 	// It is NEVER a good idea to check if floating point numbers are
@@ -25,7 +25,7 @@ public class TestGravBody {
 
 
     @Test
-    public void testGetYCoord() {
+	public void testGetYCoord() {
 	GravBody gb = new GravBody(0, 3.5555, 0, 0, 0, 0, 0, 0);
 
 	double delta = 0.00001;
@@ -59,7 +59,7 @@ public class TestGravBody {
     {
 	GravBody gb = new GravBody(0, 0, 0, 0, 5, 0, 0, 0);
 	double delta = 0.00001;
-	assertEquals(100, gb.getRadius(), delta);
+	assertEquals(1000, gb.getRadius(), delta);
     }
 
     // TODO: Add a test for getRGB
