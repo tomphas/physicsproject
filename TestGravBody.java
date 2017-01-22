@@ -52,7 +52,7 @@ public class TestGravBody {
 	double delta = 0.00001;
 	assertEquals(6.66, gb.getYVel(), delta);
     }
-
+    
     // TODO: Add a test for getRadius
     @Test
     public void testGetRadius()
@@ -96,33 +96,45 @@ public class TestGravBody {
     public void testAddForceFrom(){
 	// HINT: The physics coursework/homework you did is helpful here
 
-	GravBody gbA = new GravBody(0, 2, 0, 0, 5, 0, 0, 0);
-	GravBody gbB = new GravBody(0, 5, 0, 0, 4, 0, 0, 0);
-	GravBody gbC = new GravBody(0, 7, 0, 0, 6, 0, 0, 0);
-	double delta = 0.0000000000001;
+	GravBody m = new GravBody(0, 0, 0, 0, 1000, 0, 0, 0);
+	GravBody m1 = new GravBody(-6, 4, 0, 0, 40, 0, 0, 0);
+	GravBody m2 = new GravBody(5, 1, 0, 0, 6, 0, 0, 0);
+	double delta = 1E-15;
 
 	// TODO: Assert that the x and y component of force on gbA are 0
 	// HINT: There's no method on the Body to get the forces--but gbA is
 	// a GravBody. So you can add methods to gravBody that isnt' on the
 	// interface to get the forces you need solely for testing purposes.
-
-	//assertEquals(0, gbA.getXForce(), delta);
-	//assertEquals(0, gbA.getYForce(), delta);
-
-	// TODO: Assert that the x and y components of force on gbA are correct
-	gbA.addForceFrom(gbB);
-	gbA.addForceFrom(gbC);
-	//assertEquals(2.283512E-10, gbA.getXForce(), delta);
-	//assertEquals(0, gbA.getYForce(), delta);
+	assertEquals(0, m.getXForce(), delta);
+	assertEquals(0, m.getYForce(), delta);
 	
+	// TODO: Assert that the x and y components of force on gbA are correct
+	m.addForceFrom(m1);
+	m.addForceFrom(m2);
+	assertEquals(-2.759718100904528E-8, m.getXForce(), delta);
+	assertEquals(3.147906688641372E-8, m.getYForce(), delta);
+	
+
 	// TODO: Assert that the x and y components of force on gbB are 0
+	assertEquals(0, m1.getXForce(), delta);
+	assertEquals(0, m1.getYForce(), delta);
 
 	// TODO: Assert that x and y components of force on gbB are correct
+	m1.addForceFrom(m);
+	m1.addForceFrom(m2);
+	assertEquals(4.280938001910609E-8, m1.getXForce(), delta);
+	assertEquals(-2.849278686349383E-8, m1.getYForce(), delta);
 
 	
 	// TODO: Write test ensuring that forces can be calculated correctly
 	// for gbC
 	// HINT: It's the same as the last two test cases you wrote.
+	assertEquals(0, m2.getXForce(), delta);
+	assertEquals(0, m2.getYForce(), delta);
+	m2.addForceFrom(m);
+	m2.addForceFrom(m1);
+	assertEquals(-1.521219901006081E-8, m2.getXForce(), delta);
+	assertEquals(-2.986280022919895E-9, m2.getYForce(), delta);
     }
 
     @Test
@@ -133,7 +145,7 @@ public class TestGravBody {
 	GravBody sun = new GravBody(0, 0, 0, 0, 1.99E30, 0, 0, 0);
 	GravBody venus = new GravBody(1E11, 0, 0, 3.5E4, 4.87E24, 0, 0, 0);
 	GravBody earth = new GravBody(1.5E11, 0, 0, 3.0E4, 5.972E24, 0, 0, 0);
-	double delta = 0.1;
+	double delta = 1E-14;
 	//assertEquals(5, gbA.findXDistance(gbB), delta);
 	//assertEquals(5, gbA.findYDistance(gbB), delta);
 	//assertEquals(sqrt(50), gbA.findDistance(gbB), delta);
@@ -155,11 +167,20 @@ public class TestGravBody {
 	earth.move(1);
 	// TODO: For each GravBody object, assert that new x and y coordinates
 	// are correct after movement
-	assertEquals(0.0059, earth.getXVel(), delta);
+	assertEquals(-0.0058993743760444445, earth.getXVel(), delta);
 	assertEquals(3.0E4, earth.getYVel(), delta);
-	assertEquals(1.5E11, earth.getXCoord(), delta);
+	assertEquals(1.499999999999941E11, earth.getXCoord(), delta);
 	assertEquals(3.0E4, earth.getYCoord(), delta);
 
+	assertEquals(5.0186562222222215E-8, sun.getXVel(), delta);
+	assertEquals(0.0, sun.getYVel(), delta);
+	assertEquals(5.0186562222222215E-8, sun.getXCoord(), delta);
+	assertEquals(0.0, sun.getYCoord(), delta);
+
+	assertEquals(-0.01327314066704, venus.getXVel(), delta);
+	assertEquals(35000, venus.getYVel(), delta);
+	assertEquals(9.999999999998672E10, venus.getXCoord(), delta);
+	assertEquals(35000, venus.getYCoord(), delta);
 	//assertEquals(4.567024E-11, gbA.getXCoord(), delta);
 	// TODO: For each GravBody object, assert that x and y components of
 	// force are now 0
@@ -176,10 +197,20 @@ public class TestGravBody {
 	// TODO: Repeat the above process on the same 3 GravBody objects once
 	// more.
 
-	assertEquals(-0.0059, earth.getXVel(), delta);
-	assertEquals(3.0E4, earth.getYVel(), delta);
-	assertEquals(1.5E11, earth.getXCoord(), delta);
-	assertEquals(6.0E4, earth.getYCoord(), delta);
+	assertEquals(-0.011798748752088997, earth.getXVel(), delta);
+	assertEquals(29999.99999999882, earth.getYVel(), delta);
+	assertEquals(1.499999999999823E11, earth.getXCoord(), delta);
+	assertEquals(59999.99999999882, earth.getYCoord(), delta);
+
+	assertEquals(1.0037312444444742E-7, sun.getXVel(), delta);
+	assertEquals(1.4909747444447088E-14, sun.getYVel(), delta);
+	assertEquals(1.5055968666666963E-7, sun.getXCoord(), delta);
+	assertEquals(1.4909747444447088E-14, sun.getYCoord(), delta);
+
+	assertEquals(-0.026546281334081087, venus.getXVel(), delta);
+	assertEquals(34999.99999999536, venus.getYVel(), delta);
+	assertEquals(9.999999999996017E10, venus.getXCoord(), delta);
+	assertEquals(69999.99999999536, venus.getYCoord(), delta);
     }
 
     

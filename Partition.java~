@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+public class Partition{
+    ArrayList<Body> bodies = new ArrayList<Body>();
+    
+    public Partition(Body... b){
+	for(Body bod: b){
+	    bodies.add(bod);
+	}
+	
+	
+    }
+    
+}

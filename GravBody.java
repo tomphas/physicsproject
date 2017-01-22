@@ -60,7 +60,7 @@ public class GravBody implements Body{
 
 
     public double getRadius(){
-	return 10000;
+	return 1000;
     }
 
 

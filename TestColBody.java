@@ -100,18 +100,43 @@ public class TestColBody{
     
     @Test 
 	public void testAddForceFrom(){
-	ColBody poolBall = new ColBody(0, 0, -20, 0, 0.16, 2, 23, 45, 67);
-	ColBody bowlingBall = new ColBody(0, -3, 10, 0, 4, 6, 23, 45, 67);
-	double delta = 1E-10;
+	ColBody poolBall =    new ColBody(0, 0, 20, 0, 0.16, 2, 23, 45, 67);
+	ColBody bowlingBall = new ColBody(.5, 0, -10, 0, 4, 6, 23, 45, 67);
+	double delta = 1E-15;
+	
+	assertEquals(0, poolBall.getXVelDelta(), delta);
+	assertEquals(0, poolBall.getYVelDelta(), delta);
+	assertEquals(0, bowlingBall.getXVelDelta(), delta);
+	assertEquals(0, bowlingBall.getYVelDelta(), delta);
+	
+	poolBall.addForceFrom(bowlingBall);
+	bowlingBall.addForceFrom(poolBall);
+
+	assertEquals(-57.692307692307686, poolBall.getXVelDelta(), delta);
+	assertEquals(0.0, poolBall.getYVelDelta(), delta);
+	assertEquals(2.307692307692308, bowlingBall.getXVelDelta(), delta);
+	assertEquals(0, bowlingBall.getYVelDelta(), delta);
+
+	
+	
 	
     }
 
     @Test 
-	public void testIsColliding(){
-	ColBody bod1 = new ColBody(0, 0, 0, 0, 0, 0, 0, 0, 0);
-	ColBody bod2 = new ColBody(0, 0, 0, 0, 0, 0, 0, 0, 0);
-    }
+	public void testMove(){
+	ColBody poolBall =    new ColBody(0, 0, -20, 0, 0.16, 2, 23, 45, 67);
+	ColBody bowlingBall = new ColBody(0, -3, 10, 0, 4, 6, 23, 45, 67);
+	double delta = 1E-10;
 
-    
+	poolBall.addForceFrom(bowlingBall);
+	bowlingBall.addForceFrom(poolBall);
+	poolBall.move(1);
+	bowlingBall.move(1);
+ 	assertEquals(-20.000000000029644, poolBall.getXCoord(), delta);
+	assertEquals(0.0, poolBall.getYCoord(), delta);
+	assertEquals(9.999999999998813, bowlingBall.getXCoord(), delta);
+	assertEquals(-3, bowlingBall.getYCoord(), delta); 
+	
+    }
 
 }

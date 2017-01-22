@@ -1,4 +1,5 @@
 import static java.lang.Math.*;
+import java.util.ArrayList;
 
 /**
  * Class for representing two dimensional circular bodies for
@@ -6,7 +7,7 @@ import static java.lang.Math.*;
  * @author Anthony Ghatas
  * @version 1.0
  */
-public class ColBody implements Body{
+public class USPColBody implements Body{
 
     double xCoord;
     double yCoord;
@@ -21,11 +22,12 @@ public class ColBody implements Body{
     double yForce;
     double xVelDelta;
     double yVelDelta;
+    ArrayList<Body> collided = new ArrayList<Body>();
 
     /**
      * Constructor for ColBody
      */
-    public ColBody(double xc, double yc, double xv, double yv, double m,double rad,  int rI, int gI, int bI){
+    public USPColBody(double xc, double yc, double xv, double yv, double m,double rad,  int rI, int gI, int bI){
 	xCoord = xc;
         yCoord = yc;
         xVelocity = xv;
@@ -78,14 +80,6 @@ public class ColBody implements Body{
 	colors[1] = g;
 	colors[2] = b;
 	return colors;
-    }
-
-    public double getXVelDelta(){
-	return xVelDelta;
-    }
-
-    public double getYVelDelta(){
-	return yVelDelta;
     }
 
 
@@ -227,7 +221,14 @@ public class ColBody implements Body{
     }
 
     
-
+    public double getXVelDelta(){
+	return xVelDelta;
+    }
+    
+    
+    public double getYVelDelta(){
+	return yVelDelta;
+    }
 
     
     public void move(double time){

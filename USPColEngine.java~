@@ -1,0 +1,16 @@
+public class USPColEngine extends PhysicsEngine{
+    public USPColEngine(Body[] cBodies, double timeDelta, double universeRadius, int bgRed, int bgBlue, int bgGreen){
+	super(cBodies, timeDelta, universeRadius, bgRed, bgBlue, bgGreen);
+    }
+    int numBods = cBodies.length;
+    double numParts = (math.ceil(math.sqrt(numBods))+1);
+    public void makePartitions(){
+	
+    }
+
+    
+    protected void computeForces(){
+ 	
+	
+    }
+}
